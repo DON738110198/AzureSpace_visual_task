@@ -10,3 +10,7 @@
 10.6 受别的任务影响暂时休息
 
 10.7 完成csdn上的概论博客的阅读
+
+10.8-10.9 在B站看视频学习，链接如下：https://www.bilibili.com/video/BV1i54y1m7tw/?spm_id_from=333.337.search-card.all.click&vd_source=1d0a24ffce0fe2884625e6ca5538a425
+但是觉得效果不是很好，而且讲课人水平确实不高，有些api根本也不讲就用了，决定换一下学习方式，想到了搜索OpenCV常用Api这种方式，找一下人家的博客，然后再遇到不会的就查相关的，同时记得要去实际操作写一下代码才行。
+  
