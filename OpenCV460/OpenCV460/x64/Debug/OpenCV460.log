@@ -1,0 +1,22 @@
+﻿  main.cpp
+D:\Project\C++\OpenCV460\OpenCV460\main.cpp(123,56): warning C4244: “参数”: 从“double”转换到“_Tp”，可能丢失数据
+          with
+          [
+              _Tp=float
+          ]
+D:\Project\C++\OpenCV460\OpenCV460\main.cpp(123,31): warning C4244: “参数”: 从“double”转换到“_Tp”，可能丢失数据
+          with
+          [
+              _Tp=float
+          ]
+D:\Project\C++\OpenCV460\OpenCV460\main.cpp(141,56): warning C4244: “参数”: 从“double”转换到“_Tp”，可能丢失数据
+          with
+          [
+              _Tp=float
+          ]
+D:\Project\C++\OpenCV460\OpenCV460\main.cpp(141,31): warning C4244: “参数”: 从“double”转换到“_Tp”，可能丢失数据
+          with
+          [
+              _Tp=float
+          ]
+  OpenCV460.vcxproj -> D:\Project\C++\OpenCV460\x64\Debug\OpenCV460.exe
