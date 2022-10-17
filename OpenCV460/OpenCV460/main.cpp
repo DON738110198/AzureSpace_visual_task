@@ -5,7 +5,7 @@
 using namespace cv;
 using namespace std;
 
-// Õâ¸öHSVÍ¼ÏñÒªÎªÈ«¾Ö±äÁ¿
+// è¿™ä¸ªHSVå›¾åƒè¦ä¸ºå…¨å±€å˜é‡
 Mat imgHSV;
 int iLowH1 = 100;
 int iHighH1 = 124;
@@ -26,7 +26,7 @@ int iHighS2 = 255;
 int iLowV2 = 35;
 int iHighV2 = 255;
 
-// Áù¸öÍ¨¹ıTrackBarµ÷ÕûHSVÖµºóµÄ»Øµ÷º¯Êı
+// 12ä¸ªé€šè¿‡TrackBarè°ƒæ•´HSVå€¼åçš„å›è°ƒå‡½æ•°
 void on_track1(int value, void* userdata);
 void on_track2(int value, void* userdata);
 void on_track3(int value, void* userdata);
@@ -42,23 +42,23 @@ void on_track12(int value, void* userdata);
 
 int main(int argc, char** argv)
 {
-	Mat imgOriginal = imread("C:/Users/wh/Desktop/Vision_Group_Guidelines-main/É«¿éÊ¶±ğ/tag.png");
+	Mat imgOriginal = imread("../tag.png");
 
 	if (imgOriginal.empty())  // if not success, exit program
 	{
-		cout << "¶ÁÈ¡Í¼Æ¬Ê§°Ü" << endl;
+		cout << "è¯»å–å›¾ç‰‡å¤±è´¥" << endl;
 		return -1;
 	}
 
 	vector<Mat> hsvSplit;
-	cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV); //½«Í¼Æ¬´ÓBGR¸ñÊ½×ª»»ÎªHSV¸ñÊ½
+	cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV); //å°†å›¾ç‰‡ä»BGRæ ¼å¼è½¬æ¢ä¸ºHSVæ ¼å¼
 
-	//ÒòÎªÎÒÃÇ¶ÁÈ¡µÄÊÇ²ÊÉ«Í¼£¬Ö±·½Í¼¾ùºâ»¯ĞèÒªÔÚHSV¿Õ¼ä×ö
-	split(imgHSV, hsvSplit); // ·ÖÀëÍ¨µÀ£¬»ñµÃµÄÊÇÈı¸öÍ¨µÀµÄÍ¼Ïñ¾ØÕó
+	//å› ä¸ºæˆ‘ä»¬è¯»å–çš„æ˜¯å½©è‰²å›¾ï¼Œç›´æ–¹å›¾å‡è¡¡åŒ–éœ€è¦åœ¨HSVç©ºé—´åš
+	split(imgHSV, hsvSplit); // åˆ†ç¦»é€šé“ï¼Œè·å¾—çš„æ˜¯ä¸‰ä¸ªé€šé“çš„å›¾åƒçŸ©é˜µ
 	equalizeHist(hsvSplit[2], hsvSplit[2]);
 	merge(hsvSplit, imgHSV);
 
-	//ĞèÒª´´½¨Ò»¸ö¶¯Ì¬µ÷½ÚHSVÖµµÄ¿ØÖÆÌ¨À´µ÷ÕûHSVÖµ£¬ÕÒµ½Ğ§¹û×îºÃµÄÖµ,µ«ÊÇÏÖÔÚÒÑ¾­ÕÒ³öÀ´×îÎªºÏÊÊµÄHSVÉÏÏÂãĞÖµÁË£¬ËùÒÔÕâ¸ö¹¦ÄÜ¾Í±£Áô×Å£¬µ«ÊÇÃ»ÓĞÌ«´óµÄÓÃ´¦ÁË
+	//éœ€è¦åˆ›å»ºä¸€ä¸ªåŠ¨æ€è°ƒèŠ‚HSVå€¼çš„æ§åˆ¶å°æ¥è°ƒæ•´HSVå€¼ï¼Œæ‰¾åˆ°æ•ˆæœæœ€å¥½çš„å€¼,ä½†æ˜¯ç°åœ¨å·²ç»æ‰¾å‡ºæ¥æœ€ä¸ºåˆé€‚çš„HSVä¸Šä¸‹é˜ˆå€¼äº†ï¼Œæ‰€ä»¥è¿™ä¸ªåŠŸèƒ½å°±ä¿ç•™ç€ï¼Œä½†æ˜¯æ²¡æœ‰å¤ªå¤§çš„ç”¨å¤„äº†
 	namedWindow("ControlBlue", WINDOW_AUTOSIZE);
 	createTrackbar("LowH1", "ControlBlue", &iLowH1, 179, on_track1); //Hue (0 - 179)
 	createTrackbar("HighH1", "ControlBlue", &iHighH1, 179, on_track2);
@@ -82,21 +82,21 @@ int main(int argc, char** argv)
 	Mat imgThresholded1;
 	Mat imgThresholded2;
 
-	inRange(imgHSV, Scalar(iLowH1, iLowS1, iLowV1), Scalar(iHighH1, iHighS1, iHighV1), imgThresholded1); //¶şÖµ»¯Í¼Ïñ
+	inRange(imgHSV, Scalar(iLowH1, iLowS1, iLowV1), Scalar(iHighH1, iHighS1, iHighV1), imgThresholded1); //äºŒå€¼åŒ–å›¾åƒ
 	inRange(imgHSV, Scalar(iLowH2, iLowS2, iLowV2), Scalar(iHighH2, iHighS2, iHighV2), imgThresholded2);
 
-	medianBlur(imgThresholded1, imgThresholded1, 7);    //ÖĞÖµÂË²¨
-	medianBlur(imgThresholded2, imgThresholded2, 7);    //ÖĞÖµÂË²¨
+	medianBlur(imgThresholded1, imgThresholded1, 7);    //ä¸­å€¼æ»¤æ³¢
+	medianBlur(imgThresholded2, imgThresholded2, 7);    //ä¸­å€¼æ»¤æ³¢
 
-	//¿ª²Ù×÷ (È¥³ıÒ»Ğ©Ôëµã)
+	//å¼€æ“ä½œ (å»é™¤ä¸€äº›å™ªç‚¹)
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded1, imgThresholded1, MORPH_OPEN, element);
 	morphologyEx(imgThresholded2, imgThresholded2, MORPH_OPEN, element);
 
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded1, imgThresholded1, MORPH_CLOSE, element);
 	morphologyEx(imgThresholded2, imgThresholded2, MORPH_CLOSE, element);
-	////¾ùÖµÂË²¨
+	////å‡å€¼æ»¤æ³¢
 	blur(imgThresholded1, imgThresholded1, Size(3, 3));
 	blur(imgThresholded2, imgThresholded2, Size(3, 3));
 	
@@ -111,40 +111,40 @@ int main(int argc, char** argv)
 	findContours(canny1, contours1, hierarchy1, RETR_TREE, CHAIN_APPROX_NONE, Point());
 	findContours(canny2, contours2, hierarchy2, RETR_TREE, CHAIN_APPROX_NONE, Point());
 
-	// À¶É«É«¿éÂÖÀªµÄ»æÖÆ
-	vector<Moments> mu1(contours1.size());    //¼ÆËãÂÖÀª¾Ø  
+	// è“è‰²è‰²å—è½®å»“çš„ç»˜åˆ¶
+	vector<Moments> mu1(contours1.size());    //è®¡ç®—è½®å»“çŸ©  
 	for (int i = 0; i < contours1.size(); i++)
 	{
 		mu1[i] = moments(contours1[i], false);
 	}
-	vector<Point2f>  mc1(contours1.size());    //¼ÆËãÂÖÀªÖĞĞÄ
+	vector<Point2f>  mc1(contours1.size());    //è®¡ç®—è½®å»“ä¸­å¿ƒ
 	for (int i = 0; i < contours1.size(); i++)
 	{
 		mc1[i] = Point2f(mu1[i].m10 / mu1[i].m00, mu1[i].m01 / mu1[i].m00);
 	}
-	//»­ÂÖÀª¼°ÆäÖÊĞÄ²¢ÏÔÊ¾  
+	//ç”»è½®å»“åŠå…¶è´¨å¿ƒå¹¶æ˜¾ç¤º  
 	for (int i = 0; i < contours1.size(); i++)
 	{
-		drawContours(imgOriginal, contours1, i, Scalar(0, 0, 255), 2, 8, hierarchy1, 0, Point());      //»æÖÆÂÖÀª
-		//circle(imgOriginal, mc1[i], 15, Scalar(255, 255, 255), -1, 6, 0);      //»­ÖĞĞÄÔ²
+		drawContours(imgOriginal, contours1, i, Scalar(0, 0, 255), 2, 8, hierarchy1, 0, Point());      //ç»˜åˆ¶è½®å»“
+		//circle(imgOriginal, mc1[i], 15, Scalar(255, 255, 255), -1, 6, 0);      //ç”»ä¸­å¿ƒåœ†
 	}
 
-	// ÂÌÉ«É«¿éÂÖÀªµÄ»æÖÆ
-	vector<Moments> mu2(contours2.size());    //¼ÆËãÂÖÀª¾Ø  
+	// ç»¿è‰²è‰²å—è½®å»“çš„ç»˜åˆ¶
+	vector<Moments> mu2(contours2.size());    //è®¡ç®—è½®å»“çŸ©  
 	for (int i = 0; i < contours2.size(); i++)
 	{
 		mu1[i] = moments(contours2[i], false);
 	}
-	vector<Point2f>  mc2(contours2.size());    //¼ÆËãÂÖÀªÖĞĞÄ
+	vector<Point2f>  mc2(contours2.size());    //è®¡ç®—è½®å»“ä¸­å¿ƒ
 	for (int i = 0; i < contours2.size(); i++)
 	{
 		mc2[i] = Point2f(mu2[i].m10 / mu2[i].m00, mu2[i].m01 / mu2[i].m00);
 	}
-	//»­ÂÖÀª¼°ÆäÖÊĞÄ²¢ÏÔÊ¾  
+	//ç”»è½®å»“åŠå…¶è´¨å¿ƒå¹¶æ˜¾ç¤º  
 	for (int i = 0; i < contours2.size(); i++)
 	{
-		drawContours(imgOriginal, contours2, i, Scalar(0, 0, 255), 2, 8, hierarchy2, 0, Point());      //»æÖÆÂÖÀª
-		//circle(imgOriginal, mc2[i], 15, Scalar(255, 255, 255), -1, 6, 0);      //»­ÖĞĞÄÔ²
+		drawContours(imgOriginal, contours2, i, Scalar(0, 0, 255), 2, 8, hierarchy2, 0, Point());      //ç»˜åˆ¶è½®å»“
+		//circle(imgOriginal, mc2[i], 15, Scalar(255, 255, 255), -1, 6, 0);      //ç”»ä¸­å¿ƒåœ†
 	}
 
 
@@ -163,106 +163,106 @@ void on_track1(int value, void* userdata) {
 	inRange(imgHSV, Scalar(value, iLowS1, iLowV1), Scalar(iHighH1, iHighS1, iHighV1), imgThresholded); //
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÀ¶É«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„è“è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track2(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(iLowH1, value, iLowV1), Scalar(iHighH1, iHighS1, iHighV1), imgThresholded);
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÀ¶É«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„è“è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track3(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(iLowH1, iLowS1, value), Scalar(iHighH1, iHighS1, iHighV1), imgThresholded);
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÀ¶É«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„è“è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track4(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(iLowH1, iLowS1, iLowV1), Scalar(value, iHighS1, iHighV1), imgThresholded);
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÀ¶É«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„è“è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track5(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(iLowH1, iLowS1, iLowV1), Scalar(iHighH1, value, iHighV1), imgThresholded);
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÀ¶É«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„è“è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track6(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(iLowH1, iLowS1, iLowV1), Scalar(iHighH1, iHighS1, value), imgThresholded);
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÀ¶É«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„è“è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track7(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(value, iLowS2, iLowV2), Scalar(iHighH2, iHighS2, iHighV2), imgThresholded); //
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÂÌÉ«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„ç»¿è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track8(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(iLowH1, value, iLowV2), Scalar(iHighH2, iHighS2, iHighV2), imgThresholded); //
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÂÌÉ«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„ç»¿è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track9(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(iLowH1, iLowS2, value), Scalar(iHighH2, iHighS2, iHighV2), imgThresholded); //
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÂÌÉ«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„ç»¿è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track10(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(iLowH1, iLowS2, iLowV2), Scalar(value, iHighS2, iHighV2), imgThresholded); //
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÂÌÉ«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„ç»¿è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track11(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(iLowH1, iLowS2, iLowV2), Scalar(iHighH2, value, iHighV2), imgThresholded); //
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÂÌÉ«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„ç»¿è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
 void on_track12(int value, void* userdata) {
 	Mat imgThresholded;
 	inRange(imgHSV, Scalar(iLowH1, iLowS2, iLowV2), Scalar(iHighH2, iHighS2, value), imgThresholded); //
 	Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
 	morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
-	//±Õ²Ù×÷ (Á¬½ÓÒ»Ğ©Á¬Í¨Óò)
+	//é—­æ“ä½œ (è¿æ¥ä¸€äº›è¿é€šåŸŸ)
 	morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
-	imshow("±ä»¯ÖĞµÄÂÌÉ«É«¿éÊ¶±ğ", imgThresholded);
+	imshow("å˜åŒ–ä¸­çš„ç»¿è‰²è‰²å—è¯†åˆ«", imgThresholded);
 }
